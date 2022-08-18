@@ -51,7 +51,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Year</mat-label>
       <mat-select [formControl]="selectedYear">
-        <mat-option *ngFor="let option of years.reverse()" [value]="option">{{option}}</mat-option>
+        <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
       </mat-select>
     </mat-form-field>
 

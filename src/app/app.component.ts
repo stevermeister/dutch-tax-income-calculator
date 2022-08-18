@@ -11,7 +11,7 @@ import { merge } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'dutch-tax-income-calculator';
   selectedYear = new FormControl(constants.currentYear);
-  years = constants.years;
+  years = constants.years.reverse();
   hoursAmount = new FormControl(constants.defaultWorkingHours);
   income = new FormControl(60000);
   startFrom = new FormControl<'Year' | 'Month' | 'Week' | 'Day' | 'Hour'>(
