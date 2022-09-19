@@ -1,0 +1,143 @@
+
+
+
+<router-outlet></router-outlet>
+
+
+
+<mat-drawer-container class="container" autosize>
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button aria-label="menu icon">
+      <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+    </button>
+    <span title="makes your work easy">Dutch Income Tax Calculator</span>
+  
+    <span class="spacer"></span>
+  
+    <a
+      _ngcontent-vgy-c49=""
+      mat-button=""
+      href="https://github.com/stevermeister/dutch-tax-income-calculator"
+      aria-label="GitHub Repository"
+      class="github-link"
+      aria-disabled="false"
+      ><span class="mat-button-wrapper"
+        ><img
+          _ngcontent-vgy-c49=""
+          src="./assets/github-circle-white-transparent.svg"
+          alt="angular"
+          class="docs-angular-logo"
+        />
+        GitHub</span>
+        <span matripple="" class="mat-ripple mat-button-ripple"></span
+      ><span class="mat-button-focus-overlay"></span
+    ></a>
+  </mat-toolbar>
+  
+
+
+
+
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <h2>Options</h2>
+    <ul>
+      <li><mat-checkbox color="primary" [formControl]="allowance">Holiday allowance included</mat-checkbox></li>
+      <li><mat-checkbox color="primary" [formControl]="older">66 years or older</mat-checkbox></li>
+      <li><mat-checkbox color="primary" [formControl]="ruling">30% ruling</mat-checkbox></li>
+    </ul>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Year</mat-label>
+      <mat-select [formControl]="selectedYear">
+        <mat-option *ngFor="let option of years" [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Weekly working hours</mat-label>
+    <input matInput [formControl]="hoursAmount">
+  </mat-form-field>
+
+
+
+
+  <h2> Show Extra Options</h2>
+    <ul>
+      <li *ngFor="let option of extraOptions"><mat-checkbox color="primary" [checked]="option.checked" (change)="option.checked = !option.checked; recalculate()" >{{option.title}}</mat-checkbox></li>
+     
+
+    </ul>
+      
+ 
+    
+  </mat-drawer>
+
+  <mat-card>
+    <mat-form-field class="full-width big-input" appearance="fill">
+      <mat-label>Gross income</mat-label>
+      <input matInput [formControl]="income" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width big-input" appearance="fill">
+      <mat-label>Period</mat-label>
+      <mat-select  [formControl]="startFrom">
+        <mat-option *ngFor="let option of ['Year', 'Month', 'Week', 'Day', 'Hour']" [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <h2>Calculations</h2>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+    
+      <!-- Weight Column -->
+      <ng-container matColumnDef="value">
+        <td mat-cell *matCellDef="let element" class="report-value" [ngClass]="{ 'report-value-negative' : element.value < 0}"> {{element.value | currency: 'EUR':'symbol'}} </td>
+      </ng-container>
+    
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    
+
+
+
+
+  </mat-card>
+
+
+
+  <mat-card class="disclaimer">
+    <b>Disclaimer:</b> this calculator is for illustrative purposes only. No guarantee is made for the accuracy of the data provided. Consult a qualified tax services professional before making any decision.
+  </mat-card>
+  <mat-card class="description">
+    <h2>Tax calculators worldwide</h2>
+    <p> 
+      <a href="https://www.income-tax.co.uk/" rel="nofollow">UK</a>, 
+      <a href="https://visualsm.art/gross-net-salary-calculator/" rel="nofollow">Germany</a>, 
+      <a>France</a>, 
+      <a>Spain</a>, 
+      <a href="https://thetax.nl/">Netherlands</a>, 
+      <a href="https://relocate.me/net-pay-calculators" rel="follow">All in One</a> </p>
+  </mat-card>
+
+
+
+</mat-drawer-container>
+
+
+
+
+
+
+
+

@@ -17,16 +17,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RulingComponent } from './ruling/ruling.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: HomeComponent
+  },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     RulingComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(routes),
     MatCardModule,
     MatToolbarModule,
     MatIconModule,
