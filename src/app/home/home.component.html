@@ -88,7 +88,7 @@
     </mat-form-field>
 
 
-    <h2>Calculations</h2>
+    <h2>Calculations for {{selectedYear.getRawValue()}}</h2>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -119,6 +119,11 @@
   <mat-card class="disclaimer">
     <b>Disclaimer:</b> this calculator is for illustrative purposes only. No guarantee is made for the accuracy of the data provided. Consult a qualified tax services professional before making any decision.
   </mat-card>
+
+  
+    <app-ruling [year]="selectedYear.getRawValue()"></app-ruling>
+  
+
   <mat-card class="description">
     <h2>Tax calculators worldwide</h2>
     <p> 
