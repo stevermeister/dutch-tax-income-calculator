@@ -3,37 +3,38 @@
 
 <router-outlet></router-outlet>
 
+<mat-toolbar color="primary">
+  <button mat-icon-button aria-label="menu icon">
+    <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+  </button>
+  <span title="makes your work easy">Dutch Income Tax Calculator</span>
+
+  <span class="spacer"></span>
+
+  <a
+    _ngcontent-vgy-c49=""
+    mat-button=""
+    href="https://github.com/stevermeister/dutch-tax-income-calculator"
+    aria-label="GitHub Repository"
+    class="github-link"
+    aria-disabled="false"
+    ><span class="mat-button-wrapper"
+      ><img
+        _ngcontent-vgy-c49=""
+        src="./assets/github-circle-white-transparent.svg"
+        alt="angular"
+        class="docs-angular-logo"
+      />
+      GitHub</span>
+      <span matripple="" class="mat-ripple mat-button-ripple"></span
+    ><span class="mat-button-focus-overlay"></span
+  ></a>
+</mat-toolbar>
 
 
 <mat-drawer-container class="container" autosize>
 
-  <mat-toolbar color="primary">
-    <button mat-icon-button aria-label="menu icon">
-      <mat-icon (click)="drawer.toggle()">menu</mat-icon>
-    </button>
-    <span title="makes your work easy">Dutch Income Tax Calculator</span>
-  
-    <span class="spacer"></span>
-  
-    <a
-      _ngcontent-vgy-c49=""
-      mat-button=""
-      href="https://github.com/stevermeister/dutch-tax-income-calculator"
-      aria-label="GitHub Repository"
-      class="github-link"
-      aria-disabled="false"
-      ><span class="mat-button-wrapper"
-        ><img
-          _ngcontent-vgy-c49=""
-          src="./assets/github-circle-white-transparent.svg"
-          alt="angular"
-          class="docs-angular-logo"
-        />
-        GitHub</span>
-        <span matripple="" class="mat-ripple mat-button-ripple"></span
-      ><span class="mat-button-focus-overlay"></span
-    ></a>
-  </mat-toolbar>
+
   
 
 
@@ -117,7 +118,7 @@
 
 
   
-    <app-ruling [year]="selectedYear.getRawValue()"></app-ruling>
+  <app-ruling [year]="selectedYear.getRawValue()"></app-ruling>
   
 
   <mat-card class="description">
