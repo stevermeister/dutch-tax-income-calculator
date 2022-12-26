@@ -41,7 +41,7 @@
 
   <mat-drawer #drawer class="sidenav" mode="side">
     <h2>Options</h2>
-    <ul>
+    <ul class="list-style-type-none">
       <li><mat-checkbox color="primary" [formControl]="allowance">Holiday allowance included</mat-checkbox></li>
       <li><mat-checkbox color="primary" [formControl]="older">66 years or older</mat-checkbox></li>
       <li><mat-checkbox color="primary" [formControl]="ruling">30% ruling</mat-checkbox></li>
@@ -65,10 +65,8 @@
 
 
   <h2> Show Extra Options</h2>
-    <ul>
+    <ul class="list-style-type-none">
       <li *ngFor="let option of extraOptions"><mat-checkbox color="primary" [checked]="option.checked" (change)="option.checked = !option.checked; recalculate()" >{{option.title}}</mat-checkbox></li>
-     
-
     </ul>
       
  
@@ -117,7 +115,9 @@
 
 
   <mat-card class="disclaimer">
+    <mat-card-content>
     <b>Disclaimer:</b> this calculator is for illustrative purposes only. No guarantee is made for the accuracy of the data provided. Consult a qualified tax services professional before making any decision.
+    </mat-card-content>
   </mat-card>
 
   
@@ -125,14 +125,16 @@
   
 
   <mat-card class="description">
-    <h2>Tax calculators worldwide</h2>
-    <p> 
+    <mat-card-content>
+      <h2>Tax calculators worldwide</h2>
+      <p> 
       <a href="https://www.income-tax.co.uk/" rel="nofollow">UK</a>, 
       <a href="https://visualsm.art/gross-net-salary-calculator/" rel="nofollow">Germany</a>, 
       <a>France</a>, 
       <a>Spain</a>, 
       <a href="https://thetax.nl/">Netherlands</a>, 
       <a href="https://relocate.me/net-pay-calculators" rel="follow">All in One</a> </p>
+    </mat-card-content>
   </mat-card>
 
 
