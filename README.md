@@ -1,27 +1,19 @@
 # DutchTaxIncomeCalculator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+> Dutch Income Tax Calculator with Angular (currently version 15)
 
-## Development server
+![Screenshot 2023-01-03 at 14 43 09](https://user-images.githubusercontent.com/1526680/210368913-41872b04-ca87-431d-ad65-1f22e26b7ec0.png)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Contribution
 
-## Build
+Take into account that it's only UI part. Also there is a core logic that you can find here - https://github.com/stevermeister/dutch-tax-income-calculator-npm.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Contributors
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+[<img alt="stevermeister" src="https://avatars1.githubusercontent.com/u/1526680?v=4&s=117 width=117">](https://github.com/stevermeister) |[<img alt="eduardomourar" src="https://avatars0.githubusercontent.com/u/16357187?v=4&s=117 width=117">](https://github.com/eduardomourar) |[<img alt="israelroldan" src="https://avatars3.githubusercontent.com/u/159962?v=4&s=117 width=117">](https://github.com/israelroldan) |[<img alt="mzaferyahsi" src="https://avatars2.githubusercontent.com/u/4150565?v=4&s=117 width=117">](https://github.com/mzaferyahsi) |[<img alt="yevgeniyvaleyev" src="https://avatars0.githubusercontent.com/u/866248?v=4&s=117 width=117">](https://github.com/yevgeniyvaleyev) |[<img alt="shershen08" src="https://avatars3.githubusercontent.com/u/1363772?v=4&s=117 width=117">](https://github.com/shershen08) |[<img alt="toubou91" src="https://avatars2.githubusercontent.com/u/5684688?v=4&s=117 width=117">](https://github.com/toubou91) |
+:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+[stevermeister](https://github.com/stevermeister)|[eduardomourar](https://github.com/eduardomourar)|[israelroldan](https://github.com/israelroldan)|[mzaferyahsi](https://github.com/mzaferyahsi)|[yevgeniyvaleyev](https://github.com/yevgeniyvaleyev)|[shershen08](https://github.com/shershen08)|[toubou91](https://github.com/toubou91)|
