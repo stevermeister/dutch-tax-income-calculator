@@ -101,7 +101,10 @@
     
       <!-- Weight Column -->
       <ng-container matColumnDef="value">
-        <td mat-cell *matCellDef="let element" class="report-value" [ngClass]="{ 'report-value-negative' : element.value < 0}"> {{element.value | currency: 'EUR':'symbol'}} </td>
+        <td mat-cell *matCellDef="let element" class="report-value" [ngClass]="{ 'report-value-negative' : element.value < 0}"> 
+          <ng-container *ngIf="element.name != 'Ruling Real Percentage'"> {{element.value | currency: 'EUR':'symbol'}} </ng-container>
+          <ng-container *ngIf="element.name == 'Ruling Real Percentage'"> {{element.value | percent }} </ng-container>
+        </td>
       </ng-container>
     
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
