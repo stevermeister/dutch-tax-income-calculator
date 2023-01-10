@@ -6,6 +6,11 @@
 
 
 
+## Old version (based on AngularJS)
+
+if you are looking for the code of the old version of the app, it's placed here - https://github.com/stevermeister/dutch-tax-income-calculator-old
+
+
 # Contribution
 
 Take into account that it's only UI part. Also there is a core logic that you can find here - https://github.com/stevermeister/dutch-tax-income-calculator-npm.
