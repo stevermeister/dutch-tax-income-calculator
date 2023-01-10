@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build && cp ./src/dit-sw.js ./dist/dutch-tax-income-calculator/dit-sw.js",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
