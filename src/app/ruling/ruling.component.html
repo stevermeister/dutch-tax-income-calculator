@@ -5,10 +5,10 @@
         <ul> 
         <li>The salary amount does not matter if working with scientific research.</li>
         <li>The annual taxable salary for an employee with a master’s degree and who is younger than 30 years, must be more than
-            <b>{{ruling[year].young | currency:"EUR ": false: '0.0-0'}}</b> ({{year - 1}}: {{ruling[year - 1].young | currency:"EUR ": false: '0.0-0'}}).
+            <b>{{ruling[year].young | currency:"EUR ": '': '0.0-0'}}</b> ({{year - 1}}: {{ruling[year - 1].young | currency:"EUR ": '': '0.0-0'}}).
         </li>
         <li>The annual taxable salary for other employees must be more than
-            <b>{{ruling[year].normal | currency:"EUR ": false: '0.0-0'}}</b> ({{year - 1}}: {{ruling[year - 1].normal | currency:"EUR ": false: '0.0-0' }}).
+            <b>{{ruling[year].normal | currency:"EUR ": '': '0.0-0'}}</b> ({{year - 1}}: {{ruling[year - 1].normal | currency:"EUR ": '': '0.0-0' }}).
         </li>
         </ul>
     </mat-card-content>  
