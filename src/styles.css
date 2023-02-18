@@ -51,6 +51,20 @@ app-root {
     line-height: 32px;
 }
 
+
+.ruling-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.ruling-radio-button {
+  margin: 5px;
+}
+
+
+
 table {
     width: 30%;
 }

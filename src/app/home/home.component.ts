@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     'Year'
   );
   ruling = new FormControl(false);
+  rulingChoice = new FormControl('normal');
   allowance = new FormControl(false);
   older = new FormControl(false);
   paycheck!: any;
@@ -197,6 +198,7 @@ export class HomeComponent implements OnInit {
       this.older.valueChanges,
       this.allowance.valueChanges,
       this.hoursAmount.valueChanges,
+      this.rulingChoice.valueChanges,
       this.ruling.valueChanges).subscribe(_ => {
         this.updateRouter()
         this.recalculate()
@@ -217,7 +219,7 @@ export class HomeComponent implements OnInit {
       older: this.older.getRawValue(), 
       hours: this.hoursAmount.getRawValue() 
     }
-    this.paycheck = new SalaryPaycheck(salary, this.startFrom.getRawValue()!, this.selectedYear.getRawValue(), { checked: this.ruling.getRawValue(), choice: 'normal' });
+    this.paycheck = new SalaryPaycheck(salary, this.startFrom.getRawValue()!, this.selectedYear.getRawValue(), { checked: this.ruling.getRawValue(), choice: this.rulingChoice.getRawValue() });
 
     this.dataSource = this.extraOptions
     .filter((option) => option.checked)

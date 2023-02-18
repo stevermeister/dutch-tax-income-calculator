@@ -35,11 +35,6 @@
 <mat-drawer-container class="container" autosize>
 
 
-  
-
-
-
-
   <mat-drawer #drawer class="sidenav" mode="over">
     <h2>Options</h2>
     <ul class="list-style-type-none">
@@ -47,6 +42,14 @@
       <li><mat-checkbox color="primary" [formControl]="older">66 years & older</mat-checkbox></li>
       <li><mat-checkbox color="primary" [formControl]="ruling">30% ruling</mat-checkbox></li>
     </ul>
+
+
+    <mat-radio-group aria-labelledby="ruling-details" class="ruling-radio-group" [formControl]="rulingChoice" *ngIf="ruling.value">
+      <mat-radio-button class="ruling-radio-button" value="research" aria-label="Working with scientific research" title="Working with scientific research">Scientific research</mat-radio-button>
+      <mat-radio-button class="ruling-radio-button" value="young" aria-label="Employee with a master’s degree and younger than 30 years" title="Employee with a master’s degree and younger than 30 years">Young employee with masters</mat-radio-button>
+      <mat-radio-button class="ruling-radio-button" value="normal" aria-label="None of the above" title="None of the above">Other</mat-radio-button>
+    </mat-radio-group>
+
 
 
     <mat-form-field appearance="fill">
