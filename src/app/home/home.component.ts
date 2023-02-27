@@ -187,10 +187,10 @@ export class HomeComponent implements OnInit {
     params['income'] && this.income.setValue(Number(params['income']));
     params['startFrom'] && this.startFrom.setValue(params['startFrom']);
     params['selectedYear'] && this.selectedYear.setValue(params['selectedYear']);
-    params['older'] && this.older.setValue(params['older']);
-    params['allowance'] && this.allowance.setValue(params['allowance']);
+    params['older'] && this.older.setValue(params['older'] === 'true');
+    params['allowance'] && this.allowance.setValue(params['allowance'] === 'true');
     params['hoursAmount'] && this.hoursAmount.setValue(params['hoursAmount']);
-    params['ruling'] && this.ruling.setValue(params['ruling']);
+    params['ruling'] && this.ruling.setValue(params['ruling'] === 'true');
 
     merge( this.income.valueChanges,
       this.startFrom.valueChanges,
