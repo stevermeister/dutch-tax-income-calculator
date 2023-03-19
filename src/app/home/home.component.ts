@@ -181,7 +181,18 @@ export class HomeComponent implements OnInit {
   dataSource!: { name: string; value: number }[];
   displayedColumns: string[] = ['name', 'value'];
 
+
+  screenWidth: number;
+
   constructor(private router: Router, private route: ActivatedRoute) {
+
+
+  // set screenWidth on page load
+  this.screenWidth = window.innerWidth;
+  window.onresize = () => {
+    // set screenWidth on screen size change
+    this.screenWidth = window.innerWidth;
+  };
 
     const params = route.snapshot.queryParams;
     params['income'] && this.income.setValue(Number(params['income']));
