@@ -3,8 +3,7 @@ import { constants } from 'dutch-tax-income-calculator';
 
 @Component({
   selector: 'app-ruling',
-  templateUrl: './ruling.component.html',
-  styleUrls: ['./ruling.component.css']
+  templateUrl: './ruling.component.html'
 })
 export class RulingComponent {
 

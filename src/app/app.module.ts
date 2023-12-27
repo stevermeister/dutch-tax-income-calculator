@@ -19,20 +19,13 @@ import { RulingComponent } from './ruling/ruling.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 
-const routes: Routes = [
-  {
-    path: '',
-    component: HomeComponent
-  },
-];
+const routes: Routes = [];
 
 @NgModule({
   declarations: [
     AppComponent,
-    RulingComponent,
-    HomeComponent,
+    RulingComponent
   ],
   imports: [
     BrowserModule,

@@ -4,30 +4,29 @@ body {
   padding: 0;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 .spacer {
   flex: 1 1 auto;
 }
 
-app-root {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+
+.mat-mdc-checkbox.mat-primary {
+  max-height: 20px;
+}
+.mat-mdc-radio-button {
+  max-height: 35px;
 }
 
-.container {
-    height: 100%;
+
+
+.big-output {
+  font-size: x-large;
 }
 
-
-.sidenav {
-    padding: 20px;
+.input-card {
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
 }
-
 
 .list-style-type-none {
     list-style-type: none;
@@ -45,34 +44,21 @@ app-root {
     font-size: 75%;
 }
 
-.big-input {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 32px;
-}
 
 
 .ruling-radio-group {
   display: flex;
   flex-direction: column;
-  margin: 15px 0;
+  margin: 0 15px;
   align-items: flex-start;
 }
 
-.ruling-radio-button {
-  margin: 5px;
-}
 
 
-
-table {
+.results-table {
     width: 30%;
 }
 
-mat-cell {
-    display:flex;
-    justify-content:flex-end;
-}
 
 .report-value {
   font-weight: bold;
@@ -84,12 +70,13 @@ mat-cell {
   color: #FF3366;
 }
 
+
+
 @media screen and (max-width: 900px) {
   table {
     width: 100%;
   }
 }
-
 
 @media screen and (max-width: 600px) {
   .github-link {
@@ -101,9 +88,6 @@ mat-cell {
     display: none;
   }
 }
-
-
-
 
 @media (min-width: 576px) {
   mat-sidenav{
