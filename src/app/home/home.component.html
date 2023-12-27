@@ -4,8 +4,8 @@
 <router-outlet></router-outlet>
 
 <mat-toolbar color="primary">
-  <button mat-icon-button aria-label="menu icon">
-    <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+  <button mat-icon-button aria-label="menu icon" (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
   </button>
   <span title="makes your work easy">Dutch Income Tax Calculator</span>
 
@@ -91,27 +91,28 @@
 
 
     <h2>Calculations for {{selectedYear.getRawValue()}}</h2>
+    <mat-card class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource">
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-    
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      </ng-container>
-    
-      <!-- Weight Column -->
-      <ng-container matColumnDef="value">
-        <td mat-cell *matCellDef="let element" class="report-value" [ngClass]="{ 'report-value-negative' : element.value < 0}"> 
-          <ng-container *ngIf="element.name != 'Ruling Real Percentage'"> {{element.value | currency: 'EUR':'symbol'}} </ng-container>
-          <ng-container *ngIf="element.name == 'Ruling Real Percentage'"> {{element.value}} % </ng-container>
-        </td>
-      </ng-container>
-    
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="value">
+          <td mat-cell *matCellDef="let element" class="report-value" [ngClass]="{ 'report-value-negative' : element.value < 0}"> 
+            <ng-container *ngIf="element.name != 'Ruling Real Percentage'"> {{element.value | currency: 'EUR':'symbol'}} </ng-container>
+            <ng-container *ngIf="element.name == 'Ruling Real Percentage'"> {{element.value}} % </ng-container>
+          </td>
+        </ng-container>
+      
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card>
     
 
 
