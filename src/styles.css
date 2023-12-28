@@ -87,7 +87,28 @@ body {
     width: 28%;
     display: none;
   }
+
+  mat-form-field {
+    width: 40%;
+  }
 }
+
+@media screen and (max-width: 600px) {
+  .github-link {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none;
+  }
+}
+
+
+
+
+
+
 
 @media (min-width: 576px) {
   mat-sidenav{
