@@ -18,6 +18,15 @@ mat-drawer-container {
   flex: 1 1 auto;
 }
 
+.support-button {
+  padding: 0 8px;
+  line-height: normal;
+}
+
+.support-button img {
+  vertical-align: middle;
+}
+
 
 .mat-mdc-checkbox.mat-primary {
   max-height: 20px;
