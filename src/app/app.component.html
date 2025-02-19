@@ -2,7 +2,7 @@
   <button mat-icon-button aria-label="menu icon" (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span title="makes your work easy">Dutch Income Tax Calculator</span>
+  <span title="makes your work easy" class="toolbar-title">Dutch Income Tax Calculator</span>
 
   <span class="spacer"></span>
 
@@ -203,6 +203,15 @@
       <b>Disclaimer:</b> this calculator is for illustrative purposes only. No
       guarantee is made for the accuracy of the data provided. Consult a
       qualified tax services professional before making any decision.
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mobile-support">
+    <mat-card-content>
+      <a mat-button href="https://www.buymeacoffee.com/stevermeister" target="_blank" class="mobile-support-link">
+        <mat-icon>favorite</mat-icon>
+        <span>Support this project</span>
+      </a>
     </mat-card-content>
   </mat-card>
 </mat-drawer-container>

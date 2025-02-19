@@ -18,6 +18,13 @@ mat-drawer-container {
   flex: 1 1 auto;
 }
 
+.toolbar-title {
+  margin-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .support-button {
   padding: 0 8px;
   line-height: normal;
@@ -57,6 +64,46 @@ mat-drawer-container {
     font-size: 75%;
 }
 
+/* Desktop styles */
+@media screen and (min-width: 601px) {
+  .mobile-support {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .github-link, .support-button {
+    display: none !important;
+  }
+
+  mat-form-field {
+    width: 40%;
+  }
+
+  mat-toolbar {
+    padding: 0 8px;
+  }
+
+  .mobile-support {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .mobile-support mat-card-content {
+    padding: 0;
+  }
+
+  .mobile-support-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .mobile-support-link mat-icon {
+    margin-right: 8px;
+    color: #FF5F5F;
+  }
+}
+
 
 
 .ruling-radio-group {
@@ -85,28 +132,16 @@ td.report-value {
 }
 
 @media screen and (max-width: 600px) {
-  .github-link {
-    visibility: hidden;
-    clear: both;
-    float: left;
-    margin: 10px auto 5px 20px;
-    width: 28%;
-    display: none;
+  .github-link, .support-button {
+    display: none !important;
   }
 
   mat-form-field {
     width: 40%;
   }
-}
 
-@media screen and (max-width: 600px) {
-  .github-link {
-    visibility: hidden;
-    clear: both;
-    float: left;
-    margin: 10px auto 5px 20px;
-    width: 28%;
-    display: none;
+  mat-toolbar {
+    padding: 0 8px;
   }
 }
 
