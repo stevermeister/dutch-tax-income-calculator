@@ -25,13 +25,7 @@
     <span matripple="" class="mat-ripple mat-button-ripple"></span
     ><span class="mat-button-focus-overlay"></span
   ></a>
-  <a mat-button
-     href="https://www.buymeacoffee.com/stevermeister"
-     target="_blank"
-     class="support-button"
-     style="margin-left: 8px;">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 36px;">
-  </a>
+
 </mat-toolbar>
 
 <mat-drawer-container class="container" autosize>
@@ -146,37 +140,55 @@
 
   <mat-card>
     <h2>Calculations for {{ selectedYear.getRawValue() }}</h2>
-    <section class="output-results-table mat-elevation-z8" tabindex="0">
-      <table mat-table [dataSource]="dataSource">
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
+    <div class="results-container" style="display: flex; gap: 20px; align-items: flex-start;">
+      <section class="output-results-table mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="dataSource">
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-        </ng-container>
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <td mat-cell *matCellDef="let element" style="width: 60%;">{{ element.name }}</td>
+          </ng-container>
 
-        <!-- Weight Column -->
-        <ng-container matColumnDef="value">
-          <td
-            mat-cell
-            *matCellDef="let element"
-            class="report-value"
-            [class.report-value-negative]="element.value < 0"
-            [class.big-output]="element.name === 'Month Net Income'"
-          >
-            <ng-container *ngIf="element.name != 'Ruling Real Percentage'">
-              {{ element.value | currency : "EUR" : "symbol" }}
-            </ng-container>
-            <ng-container *ngIf="element.name == 'Ruling Real Percentage'">
-              {{ element.value }} %
-            </ng-container>
-          </td>
-        </ng-container>
+          <!-- Weight Column -->
+          <ng-container matColumnDef="value">
+            <td
+              mat-cell
+              *matCellDef="let element"
+              class="report-value"
+              [class.report-value-negative]="element.value < 0"
+              [class.big-output]="element.name === 'Month Net Income'"
+              style="width: 40%;"
+            >
+              <ng-container *ngIf="element.name != 'Ruling Real Percentage'">
+                {{ element.value | currency : "EUR" : "symbol" }}
+              </ng-container>
+              <ng-container *ngIf="element.name == 'Ruling Real Percentage'">
+                {{ element.value }} %
+              </ng-container>
+            </td>
+          </ng-container>
 
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-    </section>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </section>
+
+      <div *ngIf="showDonateButton" 
+           class="support-message mat-typography" 
+           [@fadeInOut] 
+           style="width: 300px; padding: 16px; background: #f8f9fa; border-radius: 8px; margin-top: 0;">
+        <p class="mat-body-1" style="color: #666; text-align: center; margin: 0;">
+          <mat-icon style="vertical-align: middle; color: #ff4081; margin-right: 8px;">schedule</mat-icon>
+          Average tax calculation takes {{ MINUTES_PER_CALCULATION }} minutes manually.
+          We've already saved you ~{{ totalCalculations * MINUTES_PER_CALCULATION }} minutes of calculations!
+          <a mat-button color="accent" href="https://www.buymeacoffee.com/stevermeister" target="_blank" style="margin-left: 8px; margin-top: 8px; display: block;">
+            <mat-icon>favorite</mat-icon>
+            Support this project
+          </a>
+        </p>
+      </div>
+    </div>
   </mat-card>
 
   <app-ruling [year]="selectedYear.getRawValue()"></app-ruling>

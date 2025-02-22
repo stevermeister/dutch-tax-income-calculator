@@ -1,14 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { constants, SalaryPaycheck } from 'dutch-tax-income-calculator';
-import { merge } from 'rxjs';
+import { merge, Subject, timer } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { debounceTime, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
+  styles: [`
+    .output-results-table {
+      width: 600px;
+    }
+    
+    @media (max-width: 960px) {
+      :host ::ng-deep table {
+        table-layout: fixed;
+      }
+      :host ::ng-deep td.mat-mdc-cell {
+        word-break: break-word;
+        white-space: normal;
+      }
+      .support-message {
+        display: none !important;
+      }
+      .output-results-table {
+        width: 100% !important;
+      }
+
+      .results-container {
+        flex-direction: column;
+      }
+    }
+  `],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ])
+    ])
+  ]
 })
 export class AppComponent implements OnInit {
+  showDonateButton = false;
+  totalCalculations = 0;
+  private calculationSubject = new Subject<void>();
+  private meaningfulCalculations = 0;
+  private readonly CALCULATION_DEBOUNCE_TIME = 2000; // 2 seconds
+  private readonly CALCULATIONS_BEFORE_DONATE = 2;
+  readonly MINUTES_PER_CALCULATION = 23; // estimated minutes saved per calculation
   title = 'dutch-tax-income-calculator';
   selectedYear = new FormControl(constants.currentYear.toString());
   years = constants.years.reverse().map((year: number) => year.toString());
@@ -180,7 +223,11 @@ export class AppComponent implements OnInit {
 
   screenWidth: number;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private cookieService: CookieService
+  ) {
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
@@ -218,9 +265,27 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     // this.updateRouter();
     this.recalculate();
+
+    // Load total calculations from cookie
+    const savedCalculations = this.cookieService.get('totalCalculations');
+    this.totalCalculations = savedCalculations ? parseInt(savedCalculations, 10) : 0;
+
+    // Setup calculation tracking
+    this.calculationSubject.pipe(
+      debounceTime(this.CALCULATION_DEBOUNCE_TIME),  // Wait for user to stop making changes
+    ).subscribe(() => {
+      this.meaningfulCalculations++;
+      if (this.meaningfulCalculations >= this.CALCULATIONS_BEFORE_DONATE) {
+        this.showDonateButton = true;
+        // Increment and save total calculations
+        this.totalCalculations++;
+        this.cookieService.set('totalCalculations', this.totalCalculations.toString(), 365); // store for 1 year
+      }
+    });
   }
 
   recalculate(): void {
+    this.calculationSubject.next();
     const salary = {
       income: this.income.getRawValue(),
       allowance: this.allowance.getRawValue(),
