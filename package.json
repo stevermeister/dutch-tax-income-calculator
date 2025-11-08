@@ -1,6 +1,6 @@
 {
   "name": "dutch-tax-income-calculator-frontend",
-  "version": "24.0.4",
+  "version": "25.3.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
