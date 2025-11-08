@@ -285,20 +285,20 @@ export class AppComponent implements OnInit {
   recalculate(): void {
     this.calculationSubject.next();
     const salary = {
-      income: this.income.getRawValue(),
-      allowance: this.allowance.getRawValue(),
+      income: this.income.getRawValue() ?? 0,
+      allowance: this.allowance.getRawValue() ?? false,
       socialSecurity: true,
-      older: this.older.getRawValue(),
-      hours: this.hoursAmount.getRawValue(),
+      older: this.older.getRawValue() ?? false,
+      hours: this.hoursAmount.getRawValue() ?? 0,
     };
     this.paycheck = new SalaryPaycheck(
       salary,
       this.startFrom.getRawValue()!,
-      this.selectedYear.getRawValue(),
+      +(this.selectedYear.getRawValue() ?? constants.currentYear),
       {
-        checked: this.ruling.getRawValue(),
-        choice: this.rulingChoice.getRawValue(),
-      }
+        checked: this.ruling.getRawValue() ?? false,
+        choice: this.rulingChoice.getRawValue() ?? 'normal',
+      } as any
     );
 
     this.dataSource = this.extraOptions
