@@ -29,7 +29,10 @@
             ],
             "scripts": [],
             "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            "ngswConfigPath": "ngsw-config.json",
+            "allowedCommonJsDependencies": [
+              "dutch-tax-income-calculator"
+            ]
           },
           "configurations": {
             "production": {
