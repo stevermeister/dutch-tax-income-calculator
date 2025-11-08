@@ -191,7 +191,7 @@
     </div>
   </mat-card>
 
-  <app-ruling [year]="selectedYear.getRawValue()"></app-ruling>
+  <app-ruling [year]="+(selectedYear.getRawValue() || 0)"></app-ruling>
 
   <mat-card class="description">
     <mat-card-content>

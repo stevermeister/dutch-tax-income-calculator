@@ -3,14 +3,14 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { constants, SalaryPaycheck } from 'dutch-tax-income-calculator';
-import { merge, Subject, timer } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: [`
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styles: [`
     .output-results-table {
       width: 600px;
     }
@@ -35,14 +35,15 @@ import { debounceTime, filter } from 'rxjs/operators';
       }
     }
   `],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+    animations: [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('300ms ease-in', style({ opacity: 1 }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   showDonateButton = false;
@@ -111,7 +112,7 @@ export class AppComponent implements OnInit {
       name: 'taxFreeYear',
       sign: '-',
       title: 'Tax Free Income',
-      label: 'Ammount of income that goes tax free',
+      label: 'Amount of income that goes tax free',
       checked: false,
     },
     {
@@ -236,7 +237,6 @@ export class AppComponent implements OnInit {
     };
     
     this.route.queryParams.subscribe(queryParams => {
-      //const params = route.snapshot.queryParams;
       queryParams['income'] && this.income.setValue(Number(queryParams['income']));
       queryParams['startFrom'] && this.startFrom.setValue(queryParams['startFrom']);
       queryParams['selectedYear'] && this.selectedYear.setValue(queryParams['selectedYear']);
@@ -263,7 +263,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.updateRouter();
     this.recalculate();
 
     // Load total calculations from cookie
@@ -287,20 +286,20 @@ export class AppComponent implements OnInit {
   recalculate(): void {
     this.calculationSubject.next();
     const salary = {
-      income: this.income.getRawValue(),
-      allowance: this.allowance.getRawValue(),
+      income: this.income.getRawValue() ?? 0,
+      allowance: this.allowance.getRawValue() ?? false,
       socialSecurity: true,
-      older: this.older.getRawValue(),
-      hours: this.hoursAmount.getRawValue(),
+      older: this.older.getRawValue() ?? false,
+      hours: this.hoursAmount.getRawValue() ?? 0,
     };
     this.paycheck = new SalaryPaycheck(
       salary,
       this.startFrom.getRawValue()!,
-      this.selectedYear.getRawValue(),
+      +(this.selectedYear.getRawValue() ?? constants.currentYear),
       {
-        checked: this.ruling.getRawValue(),
-        choice: this.rulingChoice.getRawValue(),
-      }
+        checked: this.ruling.getRawValue() ?? false,
+        choice: this.rulingChoice.getRawValue() ?? 'normal',
+      } as any
     );
 
     this.dataSource = this.extraOptions

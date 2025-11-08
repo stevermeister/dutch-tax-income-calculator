@@ -1,6 +1,6 @@
 # DutchTaxIncomeCalculator
 
-> Dutch Income Tax Calculator with Angular (currently version 15)
+> Dutch Income Tax Calculator with Angular (currently version 17)
 
 ![Screenshot 2023-01-03 at 14 43 09](https://user-images.githubusercontent.com/1526680/210368913-41872b04-ca87-431d-ad65-1f22e26b7ec0.png)
 

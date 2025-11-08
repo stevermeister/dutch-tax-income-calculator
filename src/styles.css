@@ -34,34 +34,30 @@ mat-drawer-container {
   vertical-align: middle;
 }
 
-
 .mat-mdc-checkbox.mat-primary {
   max-height: 20px;
 }
+
 .mat-mdc-radio-button {
   max-height: 35px;
 }
-
-
 
 .big-output {
   font-size: x-large;
 }
 
 .list-style-type-none {
-    list-style-type: none;
-    margin-top: 4px;
-    padding-left: 5px;
-  }
-
-.description {
-    font-size: 75%;
+  list-style-type: none;
+  margin-top: 4px;
+  padding-left: 5px;
 }
 
-
+.description {
+  font-size: 75%;
+}
 
 .disclaimer {
-    font-size: 75%;
+  font-size: 75%;
 }
 
 /* Desktop styles */
@@ -104,8 +100,6 @@ mat-drawer-container {
   }
 }
 
-
-
 .ruling-radio-group {
   display: flex;
   flex-direction: column;
@@ -131,44 +125,26 @@ td.report-value {
   }
 }
 
-@media screen and (max-width: 600px) {
-  .github-link, .support-button {
-    display: none !important;
-  }
-
-  mat-form-field {
-    width: 40%;
-  }
-
-  mat-toolbar {
-    padding: 0 8px;
-  }
-}
-
-
-
-
-
-
-
 @media (min-width: 576px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 60% !important;
   }
 }
+
 @media (min-width: 768px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 40% !important;
   }
 }
+
 @media (min-width: 992px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 30% !important;
   }
-  
 }
+
 @media (min-width: 1200px) {
-  mat-sidenav{
+  mat-sidenav {
     width: 30% !important;
   }
 }
