@@ -8,9 +8,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: [`
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styles: [`
     .output-results-table {
       width: 600px;
     }
@@ -35,14 +35,15 @@ import { debounceTime } from 'rxjs/operators';
       }
     }
   `],
-  animations: [
-    trigger('fadeInOut', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
-      ])
-    ])
-  ]
+    animations: [
+        trigger('fadeInOut', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('300ms ease-in', style({ opacity: 1 }))
+            ])
+        ])
+    ],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   showDonateButton = false;
