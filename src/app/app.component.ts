@@ -3,9 +3,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { constants, SalaryPaycheck } from 'dutch-tax-income-calculator';
-import { merge, Subject, timer } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -111,7 +111,7 @@ export class AppComponent implements OnInit {
       name: 'taxFreeYear',
       sign: '-',
       title: 'Tax Free Income',
-      label: 'Ammount of income that goes tax free',
+      label: 'Amount of income that goes tax free',
       checked: false,
     },
     {
@@ -236,7 +236,6 @@ export class AppComponent implements OnInit {
     };
     
     this.route.queryParams.subscribe(queryParams => {
-      //const params = route.snapshot.queryParams;
       queryParams['income'] && this.income.setValue(Number(queryParams['income']));
       queryParams['startFrom'] && this.startFrom.setValue(queryParams['startFrom']);
       queryParams['selectedYear'] && this.selectedYear.setValue(queryParams['selectedYear']);
@@ -263,7 +262,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.updateRouter();
     this.recalculate();
 
     // Load total calculations from cookie
