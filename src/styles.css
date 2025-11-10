@@ -8,6 +8,7 @@ mat-card {
   margin-left: 15px;
   margin-right: 15px;
   padding: 15px;
+  min-width: 310px;
 }
 
 mat-drawer-container {
@@ -98,6 +99,52 @@ mat-drawer-container {
     margin-right: 8px;
     color: #FF5F5F;
   }
+
+  .big-output {
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+
+  /* Report value cells: truncate with ellipsis on mobile */
+  td.report-value {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    cursor: default;
+  }
+  
+  /* Show pointer cursor only when text is actually overflowing */
+  td.report-value.has-overflow {
+    cursor: pointer;
+  }
+}
+
+/* Tooltip for displaying full value on mobile when text overflows */
+.value-tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 1000;
+  pointer-events: auto;
+  transform: translate(-50%, -100%);
+  margin-top: -8px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Tooltip arrow pointing down to the cell */
+.value-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
 }
 
 .ruling-radio-group {
@@ -111,12 +158,24 @@ td.report-value {
   text-align: right;
 }
 
+.mat-mdc-cell,
+.mdc-data-table__cell,
+.cdk-cell {
+  min-width: 140px;
+}
+
 .report-value-negative {
   color: #FF3366;
 }
 
 .output-results-table {
   width: 500px;
+  overflow: hidden;
+}
+
+.output-results-table table {
+  table-layout: fixed;
+  width: 100%;
 }
 
 @media screen and (max-width: 900px) {

@@ -151,7 +151,7 @@
             <td mat-cell *matCellDef="let element" style="width: 60%;">{{ element.name }}</td>
           </ng-container>
 
-          <!-- Weight Column -->
+          <!-- Value Column -->
           <ng-container matColumnDef="value">
             <td
               mat-cell
@@ -159,12 +159,18 @@
               class="report-value"
               [class.report-value-negative]="element.value < 0"
               [class.big-output]="element.name === 'Month Net Income'"
+              [class.has-overflow]="cellsWithOverflow.has(element.name)"
+              [attr.data-cell-id]="element.name"
+              (click)="showTooltip(element.name, element, $event)"
+              (blur)="hideTooltip()"
+              (mouseleave)="hideTooltip()"
+              tabindex="0"
               style="width: 40%;"
             >
-              <ng-container *ngIf="element.name != 'Ruling Real Percentage'">
+              <ng-container *ngIf="element.name !== 'Ruling Real Percentage'">
                 {{ element.value | currency : "EUR" : "symbol" }}
               </ng-container>
-              <ng-container *ngIf="element.name == 'Ruling Real Percentage'">
+              <ng-container *ngIf="element.name === 'Ruling Real Percentage'">
                 {{ element.value }} %
               </ng-container>
             </td>
@@ -190,6 +196,20 @@
       </div>
     </div>
   </mat-card>
+
+  <!-- Tooltip for mobile: shows full value when text overflows -->
+  <div 
+    *ngIf="tooltipCell && tooltipPosition" 
+    class="value-tooltip"
+    [style.left.px]="tooltipPosition.x"
+    [style.top.px]="tooltipPosition.y"
+    (click)="hideTooltip()"
+    (touchstart)="hideTooltip()"
+    role="tooltip"
+    aria-live="polite"
+  >
+    {{ tooltipValue }}
+  </div>
 
   <app-ruling [year]="+(selectedYear.getRawValue() || 0)"></app-ruling>
 
