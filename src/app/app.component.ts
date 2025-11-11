@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,12 @@ import { debounceTime } from 'rxjs/operators';
       width: 600px;
     }
     
+    @media (max-width: 600px) {
+      :host ::ng-deep .mdc-data-table__cell {
+        padding: 0 10px;
+      }
+    }
+    
     @media (max-width: 960px) {
       :host ::ng-deep table {
         table-layout: fixed;
@@ -22,6 +28,12 @@ import { debounceTime } from 'rxjs/operators';
       :host ::ng-deep td.mat-mdc-cell {
         word-break: break-word;
         white-space: normal;
+      }
+      :host ::ng-deep td.mat-mdc-cell.report-value {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
       }
       .support-message {
         display: none !important;
@@ -45,7 +57,7 @@ import { debounceTime } from 'rxjs/operators';
     ],
     standalone: false
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   showDonateButton = false;
   totalCalculations = 0;
   private calculationSubject = new Subject<void>();
@@ -221,6 +233,12 @@ export class AppComponent implements OnInit {
 
   dataSource!: { name: string; value: number }[];
   displayedColumns: string[] = ['name', 'value'];
+  
+  tooltipCell: string | null = null;
+  tooltipPosition: { x: number; y: number } | null = null;
+  tooltipValue: string = '';
+  
+  cellsWithOverflow: Set<string> = new Set();
 
   screenWidth: number;
 
@@ -283,6 +301,32 @@ export class AppComponent implements OnInit {
     });
   }
 
+
+  ngAfterViewChecked(): void {
+    const isMobile = this.screenWidth <= 600;
+    const hasData = this.dataSource && this.dataSource.length > 0;
+    
+    if (!isMobile || !hasData) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      this.dataSource.forEach(element => {
+        const cellSelector = `td.report-value[data-cell-id="${element.name}"]`;
+        const cell = document.querySelector(cellSelector) as HTMLElement;
+        
+        if (cell) {
+          const hasOverflow = cell.scrollWidth > cell.clientWidth;
+          if (hasOverflow) {
+            this.cellsWithOverflow.add(element.name);
+          } else {
+            this.cellsWithOverflow.delete(element.name);
+          }
+        }
+      });
+    });
+  }
+
   recalculate(): void {
     this.calculationSubject.next();
     const salary = {
@@ -308,6 +352,60 @@ export class AppComponent implements OnInit {
         name: option.title,
         value: this.paycheck[option.name],
       }));
+    
+
+    this.cellsWithOverflow.clear();
+  }
+
+
+  showTooltip(cellId: string, element: { name: string; value: number }, event: MouseEvent): void {
+    const isMobile = this.screenWidth <= 600;
+    if (!isMobile) {
+      return;
+    }
+
+    const cell = event.currentTarget as HTMLElement;
+    const hasOverflow = cell.scrollWidth > cell.clientWidth;
+    
+    if (!hasOverflow) {
+      return;
+    }
+
+    // Toggle: if tooltip is already showing for this cell, hide it
+    if (this.tooltipCell === cellId) {
+      this.hideTooltip();
+      return;
+    }
+
+    // Show tooltip with formatted value
+    this.tooltipCell = cellId;
+    this.tooltipValue = this.formatValueForTooltip(element);
+    
+    // Position tooltip above the cell, centered
+    const cellRect = cell.getBoundingClientRect();
+    this.tooltipPosition = {
+      x: cellRect.left + cellRect.width / 2,
+      y: cellRect.top - 10
+    };
+  }
+
+  private formatValueForTooltip(element: { name: string; value: number }): string {
+    if (element.name === 'Ruling Real Percentage') {
+      return `${element.value} %`;
+    }
+    
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 2
+    }).format(element.value);
+  }
+
+
+  hideTooltip(): void {
+    this.tooltipCell = null;
+    this.tooltipPosition = null;
+    this.tooltipValue = '';
   }
 
   updateRouter() {
