@@ -1,6 +1,6 @@
 {
   "name": "dutch-tax-income-calculator-frontend",
-  "version": "25.3.1",
+  "version": "26.1.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^20.3.10",
     "@angular/router": "^20.3.10",
     "@angular/service-worker": "^20.3.10",
-    "dutch-tax-income-calculator": "^25.3.1",
+    "dutch-tax-income-calculator": "^26.1.1",
     "ngx-cookie-service": "^20.1.1",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
