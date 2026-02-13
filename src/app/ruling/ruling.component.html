@@ -11,5 +11,10 @@
             <b>{{ruling[year].normal | currency:"EUR ": '': '0.0-0'}}</b> ({{year - 1}}: {{ruling[year - 1].normal | currency:"EUR ": '': '0.0-0' }}).
         </li>
         </ul>
+        <h3>Ruling Percentage</h3>
+        <ul>
+            <li>If your ruling decision (beschikking) is dated ≤ 31-12-2023, the ruling is fixed at 30% for the full duration of the ruling</li>
+            <li>Otherwise, the ruling is 30% until 2027, and 27% on 2027 onward</li>
+        </ul>
     </mat-card-content>  
 </mat-card>

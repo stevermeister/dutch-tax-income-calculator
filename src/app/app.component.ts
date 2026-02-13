@@ -73,6 +73,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   startFrom = new FormControl<'Year' | 'Month' | 'Week' | 'Day' | 'Hour'> ('Year');
   ruling = new FormControl(false);
   rulingChoice = new FormControl('normal');
+  rulingPercentage = new FormControl(30);
   allowance = new FormControl(false);
   older = new FormControl(false);
   paycheck!: any;
@@ -262,6 +263,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       queryParams['allowance'] && this.allowance.setValue(queryParams['allowance'] === 'true');
       queryParams['hoursAmount'] && this.hoursAmount.setValue(queryParams['hoursAmount']);
       queryParams['ruling'] && this.ruling.setValue(queryParams['ruling'] === 'true');
+      queryParams['rulingPercentage'] && this.rulingPercentage.setValue(Number(queryParams['rulingPercentage']));
     });
 
 
@@ -273,7 +275,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
       this.allowance.valueChanges,
       this.hoursAmount.valueChanges,
       this.rulingChoice.valueChanges,
-      this.ruling.valueChanges
+      this.ruling.valueChanges,
+      this.rulingPercentage.valueChanges
     ).subscribe((_) => {
       this.updateRouter();
       this.recalculate();
@@ -343,6 +346,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       {
         checked: this.ruling.getRawValue() ?? false,
         choice: this.rulingChoice.getRawValue() ?? 'normal',
+        percentage: this.rulingPercentage.getRawValue() ?? 30,
       } as any
     );
 
@@ -418,6 +422,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       socialSecurity: true,
       hoursAmount: this.hoursAmount.getRawValue(),
       ruling: this.ruling.getRawValue(),
+      rulingPercentage: this.rulingPercentage.getRawValue(),
     };
 
     this.router.navigate([], {
