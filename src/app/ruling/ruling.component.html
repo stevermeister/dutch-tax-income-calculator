@@ -2,7 +2,7 @@
     <mat-card-content>
         <h2>About 30% Ruling</h2>
         <p> The salary criteria for the <b>30% ruling</b> as per January {{year}} are as follows:<br></p>
-        <ul> 
+        <ul>
         <li>The salary amount does not matter if working with scientific research.</li>
         <li>The annual taxable salary for an employee with a master’s degree and who is younger than 30 years, must be more than
             <b>{{ruling[year].young | currency:"EUR ": '': '0.0-0'}}</b> ({{year - 1}}: {{ruling[year - 1].young | currency:"EUR ": '': '0.0-0'}}).
@@ -13,8 +13,9 @@
         </ul>
         <h3>Ruling Percentage</h3>
         <ul>
-            <li>If your ruling decision (beschikking) is dated ≤ 31-12-2023, the ruling is fixed at 30% for the full duration of the ruling</li>
-            <li>Otherwise, the ruling is 30% until 2027, and 27% on 2027 onward</li>
+            <li><b>30%</b> Until 2027, or the full duration of the ruling if If your ruling decision (beschikking) is dated ≤ 31-12-2023</li>
+            <li><b>27%</b> From 2027 onward</li>
+            <li><b>Custom</b> Non-standard ruling percentage (0-30%)</li>
         </ul>
-    </mat-card-content>  
+    </mat-card-content>
 </mat-card>
