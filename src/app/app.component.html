@@ -101,6 +101,7 @@
       <ul class="list-style-type-none">
         <li *ngFor="let option of extraOptions">
           <mat-checkbox
+            *ngIf="!option.bonusOnly || bonusEnabled.value"
             color="primary"
             [checked]="option.checked"
             (change)="option.checked = !option.checked; recalculate()"
@@ -136,6 +137,18 @@
         </mat-select>
       </mat-form-field>
     </div>
+
+    <div style="margin-top: 16px;">
+      <mat-checkbox color="primary" [formControl]="bonusEnabled">Include one-off bonus</mat-checkbox>
+    </div>
+
+    <div *ngIf="bonusEnabled.value" style="margin-top: 12px;">
+      <mat-form-field>
+        <mat-label>Gross bonus amount</mat-label>
+        <input matInput [formControl]="bonusGross" type="number" inputmode="decimal" min="0" />
+        <mat-error *ngIf="bonusGross.hasError('min')">Bonus cannot be negative</mat-error>
+      </mat-form-field>
+    </div>
   </mat-card>
 
   <mat-card>
@@ -158,7 +171,7 @@
               *matCellDef="let element"
               class="report-value"
               [class.report-value-negative]="element.value < 0"
-              [class.big-output]="element.name === 'Month Net Income'"
+              [class.big-output]="element.name.includes('Month Net Income') || element.name === 'Net Bonus (take-home)' || element.name === 'Total Net (Salary + Bonus)'"
               [class.has-overflow]="cellsWithOverflow.has(element.name)"
               [attr.data-cell-id]="element.name"
               (click)="showTooltip(element.name, element, $event)"
