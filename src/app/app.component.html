@@ -50,10 +50,27 @@
         </li>
         <li>
           <mat-checkbox color="primary" [formControl]="ruling"
-            >30% ruling</mat-checkbox
+            >30% ruling (Expat Scheme)</mat-checkbox
           >
         </li>
       </ul>
+
+      <div *ngIf="ruling.value" style="display: flex; align-items: center; gap: 8px;">
+        <mat-form-field appearance="fill" style="flex: 1;">
+          <mat-label>Ruling Percentage</mat-label>
+          <input
+            matInput
+            type="number"
+            [formControl]="rulingPercentage"
+            min="0"
+            max="30"
+            step="0.1"
+          />
+          <span matSuffix>%</span>
+          <mat-error *ngIf="rulingPercentage.hasError('min')">Value must be at least 0%</mat-error>
+          <mat-error *ngIf="rulingPercentage.hasError('max')">Value must be at most 30%</mat-error>
+        </mat-form-field>
+      </div>
 
       <mat-radio-group
         aria-labelledby="ruling-details"
