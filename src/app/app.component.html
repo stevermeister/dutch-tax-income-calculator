@@ -43,6 +43,11 @@
             >Holiday allowance included</mat-checkbox
           >
         </li>
+        <li *ngIf="allowance.value">
+          <mat-checkbox color="primary" [formControl]="holidayPayoutMay"
+            >Holiday payout in May</mat-checkbox
+          >
+        </li>
         <li>
           <mat-checkbox color="primary" [formControl]="older"
             >66 years & older</mat-checkbox
