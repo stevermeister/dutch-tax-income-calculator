@@ -74,6 +74,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   ruling = new FormControl(false);
   rulingChoice = new FormControl('normal');
   allowance = new FormControl(false);
+  holidayPayoutMay = new FormControl(false);
   older = new FormControl(false);
   paycheck!: any;
 
@@ -262,6 +263,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       queryParams['allowance'] && this.allowance.setValue(queryParams['allowance'] === 'true');
       queryParams['hoursAmount'] && this.hoursAmount.setValue(queryParams['hoursAmount']);
       queryParams['ruling'] && this.ruling.setValue(queryParams['ruling'] === 'true');
+      queryParams['holidayPayoutMay'] && this.holidayPayoutMay.setValue(queryParams['holidayPayoutMay'] === 'true');
     });
 
 
@@ -271,6 +273,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       this.selectedYear.valueChanges,
       this.older.valueChanges,
       this.allowance.valueChanges,
+      this.holidayPayoutMay.valueChanges,
       this.hoursAmount.valueChanges,
       this.rulingChoice.valueChanges,
       this.ruling.valueChanges
@@ -346,12 +349,35 @@ export class AppComponent implements OnInit, AfterViewChecked {
       } as any
     );
 
+    const mayPayout = this.holidayPayoutMay.getRawValue() && this.allowance.getRawValue();
+    const netAllowance = this.paycheck.netAllowance || 0;
+
     this.dataSource = this.extraOptions
       .filter((option) => option.checked)
-      .map((option) => ({
-        name: option.title,
-        value: this.paycheck[option.name],
-      }));
+      .map((option) => {
+        let value = this.paycheck[option.name];
+
+        // When May payout is selected, exclude holiday from period amounts
+        if (mayPayout && netAllowance > 0) {
+          const netYearWithoutHoliday = this.paycheck.netYear - netAllowance;
+          switch (option.name) {
+            case 'netMonth':
+              value = netYearWithoutHoliday / 12;
+              break;
+            case 'netWeek':
+              value = netYearWithoutHoliday / 52;
+              break;
+            case 'netDay':
+              value = netYearWithoutHoliday / 255;
+              break;
+            case 'netHour':
+              value = netYearWithoutHoliday / (52 * (this.hoursAmount.getRawValue() || 40));
+              break;
+          }
+        }
+
+        return { name: option.title, value };
+      });
     
 
     this.cellsWithOverflow.clear();
@@ -418,6 +444,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
       socialSecurity: true,
       hoursAmount: this.hoursAmount.getRawValue(),
       ruling: this.ruling.getRawValue(),
+      holidayPayoutMay: this.holidayPayoutMay.getRawValue(),
     };
 
     this.router.navigate([], {
