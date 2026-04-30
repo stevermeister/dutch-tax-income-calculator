@@ -472,7 +472,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   updateRouter() {
-    const params = {
+    const raw: Record<string, unknown> = {
       income: this.income.getRawValue(),
       startFrom: this.startFrom.getRawValue(),
       selectedYear: this.selectedYear.getRawValue(),
@@ -484,10 +484,21 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
       holidayPayoutMay: this.holidayPayoutMay.getRawValue(),
     };
 
+    // Map invalid values to null so Angular Router removes them from the URL.
+    // Filtering them out entirely would leave stale values in the URL when
+    // using queryParamsHandling: 'merge'.
+    const params = Object.fromEntries(
+      Object.entries(raw).map(([k, v]) => [
+        k,
+        v === null || v === undefined || v === '' || Number.isNaN(v) ? null : v,
+      ])
+    );
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: params,
-      queryParamsHandling: 'merge', // remove to replace all query params by provided
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
   }
 }
