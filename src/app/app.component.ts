@@ -484,10 +484,14 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
       holidayPayoutMay: this.holidayPayoutMay.getRawValue(),
     };
 
+    // Map invalid values to null so Angular Router removes them from the URL.
+    // Filtering them out entirely would leave stale values in the URL when
+    // using queryParamsHandling: 'merge'.
     const params = Object.fromEntries(
-      Object.entries(raw).filter(([, v]) =>
-        v !== null && v !== undefined && v !== '' && !Number.isNaN(v)
-      )
+      Object.entries(raw).map(([k, v]) => [
+        k,
+        v === null || v === undefined || v === '' || Number.isNaN(v) ? null : v,
+      ])
     );
 
     this.router.navigate([], {
