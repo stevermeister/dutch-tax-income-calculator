@@ -1,11 +1,12 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, OnDestroy } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { constants, SalaryPaycheck } from 'dutch-tax-income-calculator';
-import { merge, Subject } from 'rxjs';
+import { fromEvent, interval, merge, Subject } from 'rxjs';
+import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
-import { debounceTime } from 'rxjs/operators';
+import { SwUpdate } from '@angular/service-worker';
 
 @Component({
     selector: 'app-root',
@@ -65,10 +66,11 @@ import { debounceTime } from 'rxjs/operators';
     ],
     standalone: false
 })
-export class AppComponent implements OnInit, AfterViewChecked {
+export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   showDonateButton = false;
   totalCalculations = 0;
   private calculationSubject = new Subject<void>();
+  private destroy$ = new Subject<void>();
   private meaningfulCalculations = 0;
   private readonly CALCULATION_DEBOUNCE_TIME = 2000; // 2 seconds
   private readonly CALCULATIONS_BEFORE_DONATE = 2;
@@ -254,7 +256,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private swUpdate: SwUpdate
   ) {
     // set screenWidth on page load
     this.screenWidth = window.innerWidth;
@@ -310,6 +313,32 @@ export class AppComponent implements OnInit, AfterViewChecked {
         this.cookieService.set('totalCalculations', this.totalCalculations.toString(), 365); // store for 1 year
       }
     });
+
+    if (this.swUpdate.isEnabled) {
+      // Activate new version as soon as it's ready, then reload
+      this.swUpdate.versionUpdates.pipe(
+        filter(evt => evt.type === 'VERSION_READY'),
+        takeUntil(this.destroy$)
+      ).subscribe(() => {
+        this.swUpdate.activateUpdate().then(() => document.location.reload());
+      });
+
+      // Check on tab becoming visible (catches returning users with stale SW)
+      fromEvent(document, 'visibilitychange').pipe(
+        filter(() => document.visibilityState === 'visible'),
+        takeUntil(this.destroy$)
+      ).subscribe(() => this.swUpdate.checkForUpdate());
+
+      // Periodic check every 6 hours for long-running tabs
+      interval(6 * 60 * 60 * 1000).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe(() => this.swUpdate.checkForUpdate());
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 
