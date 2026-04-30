@@ -11,6 +11,14 @@ import { debounceTime } from 'rxjs/operators';
     selector: 'app-root',
     templateUrl: './app.component.html',
     styles: [`
+    h1.toolbar-title {
+      font-size: inherit;
+      font-weight: inherit;
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+    }
+
     .output-results-table {
       width: 600px;
     }
