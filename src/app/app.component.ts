@@ -472,7 +472,7 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   updateRouter() {
-    const params = {
+    const raw: Record<string, unknown> = {
       income: this.income.getRawValue(),
       startFrom: this.startFrom.getRawValue(),
       selectedYear: this.selectedYear.getRawValue(),
@@ -484,10 +484,17 @@ export class AppComponent implements OnInit, AfterViewChecked, OnDestroy {
       holidayPayoutMay: this.holidayPayoutMay.getRawValue(),
     };
 
+    const params = Object.fromEntries(
+      Object.entries(raw).filter(([, v]) =>
+        v !== null && v !== undefined && v !== '' && !Number.isNaN(v)
+      )
+    );
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: params,
-      queryParamsHandling: 'merge', // remove to replace all query params by provided
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
   }
 }
